@@ -23,6 +23,16 @@ impl State {
             view_state: HashMap::new(),
         };
 
+        let mut path = std::env::current_dir().unwrap();
+
+        while path.file_name().is_some() {
+            if let Some(p) = path.parent() {
+                println!("Navigating to: {:?}", &path);
+                state.navigate_to_with_focus(p, &path);
+            }
+            path.pop();
+        }
+
         state.navigate_to(std::env::current_dir().unwrap());
 
         state
@@ -34,13 +44,14 @@ impl State {
             self.path = path;
             self.active = 0;
             self.scroll = 0;
-            if let Some((active, scroll)) = self.view_state.get(&self.path) {
-                self.active = *active;
-                self.scroll = *scroll;
-            }
             self.update();
+
+            let focus = focus.into();
+
+            while self.elements[self.active] != focus && self.active + 1 < self.elements.len()  {
+                self.down();
+            }
         }
-    
     }
 
     pub fn navigate_to<P: Into<PathBuf>>(&mut self, path: P) {
@@ -105,10 +116,10 @@ impl State {
     }
 
     pub fn down(&mut self) {
-        if self.active < self.elements.len()-1 {
+        if self.active + 1 < self.elements.len() {
             self.active += 1;
         }
-        if self.active - self.scroll >= self.vspace - 5 {
+        if self.active as i64 - self.scroll as i64 >= self.vspace as i64 - 5 {
             self.scroll = std::cmp::min(self.scroll as i64 +1, self.elements.len() as i64 - self.vspace as i64) as usize;
         }
 
