@@ -1,0 +1,12 @@
+[package]
+name = "gui-experiments"
+version = "0.1.0"
+authors = ["Birk Tjelmeland <birktjelmeland@yahoo.no>"]
+
+[dependencies]
+glium = "0.22"
+nalgebra = "0.16"
+#freetype-rs = "0.19"
+[dependencies.rusttype]
+version = "0.7" # One day, maybe we can use pathfinder instead
+features = ["gpu_cache"]
