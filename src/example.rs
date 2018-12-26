@@ -80,7 +80,7 @@ impl State {
         //self.scroll = std::cmp::min(self.scroll, self.elements.len()-self.vspace);
     }
     
-    pub fn layout(&mut self, width: f32, height: f32) {
+    pub fn layout(&mut self, _width: f32, height: f32) {
         self.vspace = ((height - 60.0) / 50.0) as usize;
     }
 

@@ -111,14 +111,14 @@ fn main() {
     });
 
     let rectangle_renderer = RectangleRenderer::new(&display);
-    let mut text_renderer = TextRenderer::new(&display);
+    let text_renderer = TextRenderer::new(&display);
 
 
-    let window_size = display.gl_window().window().get_inner_size().unwrap();
+    let _window_size = display.gl_window().window().get_inner_size().unwrap();
 
-    let mut transform_matrix = Transform3::identity() * Similarity3::from_scaling(0.01);
+    let _transform_matrix = Transform3::identity() * Similarity3::from_scaling(0.01);
 
-    let mut focus = 0;
+    let focus = 0;
 
     let mut curr_state = RenderState::from_state(focus);
     let mut next_state = RenderState::from_state(focus);
@@ -150,7 +150,7 @@ fn main() {
         curr_state.step_towards(&next_state);
         let mut target = display.draw();
         let (width, height) = target.get_dimensions();
-        let matrix =  [
+        let _matrix =  [
                 [2.0 / width as f32, 0.0, 0.0, -1.0],
                 [0.0, 2.0 / height as f32, 0.0, 1.0],
                 [0.0, 0.0, 0.01, 0.0],
@@ -194,7 +194,7 @@ fn main() {
 
         events_loop.poll_events(|ev| {
             //println!("Event: {:?}", ev);
-            if let Some(window_size) = display.gl_window().window().get_inner_size() {
+            if let Some(_window_size) = display.gl_window().window().get_inner_size() {
                 // Resize here
             }
             match ev {
